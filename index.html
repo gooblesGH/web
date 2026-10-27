@@ -1,163 +1,383 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code For Fun - Goobles</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f2">
+  <meta name="description" content="Join the community for a Roblox game currently in beta.">
+  <title>Roblox Game — Beta Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f7f8f2;
+      --ink: #17241d;
+      --muted: #58645d;
+      --line: #d6ddd4;
+      --lime: #d8fb63;
+      --coral: #ff7058;
+      --blue: #86c9dc;
+      font-family: "Space Grotesk", sans-serif;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+    * { box-sizing: border-box; }
 
-        /* Main container */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 60px;
-        }
+    html { scroll-behavior: smooth; }
 
-        /* Heading with bold geometric letters */
-        .heading {
-            text-align: center;
-            width: 100%;
-        }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: linear-gradient(90deg, transparent 49.9%, #dce2d833 50%, transparent 50.1%);
+      background-size: 80px 80px;
+    }
 
-        h1 {
-            font-size: clamp(3rem, 15vw, 10rem);
-            font-weight: 900;
-            color: #0099ff;
-            letter-spacing: 8px;
-            line-height: 1.1;
-            text-transform: uppercase;
-            font-family: 'Arial Black', sans-serif;
-            word-spacing: 20px;
-            animation: slideDown 0.8s ease-out;
-        }
+    a { color: inherit; }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .page {
+      width: min(1220px, calc(100% - 80px));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
 
-        /* Button container */
-        .button-group {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: slideUp 0.8s ease-out 0.2s both;
-        }
+    .topbar {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
 
-        /* Buttons */
-        .btn {
-            padding: 18px 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border: 4px solid #0099ff;
-            background-color: #0099ff;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Arial Black', sans-serif;
-        }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+    }
 
-        .btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 20px rgba(0, 153, 255, 0.4);
-        }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      color: var(--lime);
+      border-radius: 11px 11px 11px 3px;
+      font-family: "DM Serif Display", serif;
+      font-size: 25px;
+    }
 
-        .btn:active {
-            transform: scale(0.96);
-        }
+    .top-note, .eyebrow, .footer-note, .widget-label, .side-note {
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
 
-        .btn-outline {
-            background-color: transparent;
-            color: #0099ff;
-            border: 4px solid #0099ff;
-        }
+    .top-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+    }
 
-        .btn-outline:hover {
-            background-color: #0099ff;
-            color: white;
-        }
+    .top-note::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--coral);
+      content: "";
+    }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 410px;
+      align-items: center;
+      gap: clamp(56px, 9vw, 140px);
+      padding: 64px 0 76px;
+    }
 
-        /* Responsive design */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: clamp(2rem, 12vw, 4rem);
-                letter-spacing: 4px;
-                word-spacing: 10px;
-            }
+    .intro {
+      max-width: 650px;
+      animation: reveal 700ms cubic-bezier(.2,.8,.2,1) both;
+    }
 
-            .button-group {
-                gap: 20px;
-                flex-direction: column;
-                width: 100%;
-            }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: #48584d;
+    }
 
-            .btn {
-                width: 100%;
-                padding: 16px 30px;
-                font-size: 1rem;
-            }
+    .eyebrow-index {
+      display: grid;
+      width: 27px;
+      height: 27px;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font-size: 10px;
+    }
 
-            .container {
-                gap: 40px;
-            }
-        }
-    </style>
+    h1 {
+      margin: 30px 0 24px;
+      max-width: 640px;
+      font-size: clamp(68px, 8.3vw, 108px);
+      line-height: 0.91;
+      letter-spacing: -0.065em;
+      font-weight: 600;
+    }
+
+    h1 em {
+      display: inline-block;
+      position: relative;
+      z-index: 0;
+      color: #17684d;
+      font-family: "DM Serif Display", serif;
+      font-weight: 400;
+      letter-spacing: -0.045em;
+    }
+
+    h1 em::after {
+      position: absolute;
+      z-index: -1;
+      right: -9px;
+      bottom: 5px;
+      left: -8px;
+      height: 18px;
+      content: "";
+      background: var(--lime);
+      transform: rotate(-2deg);
+    }
+
+    .description {
+      max-width: 440px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .join-link, .peek-link {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      padding: 0 19px;
+      border: 1px solid var(--ink);
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .join-link {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .join-link:hover { transform: translateY(-3px); box-shadow: 4px 5px 0 var(--coral); }
+
+    .peek-link {
+      border-color: transparent;
+      background: transparent;
+    }
+
+    .peek-link:hover { background: #e7ebdf; }
+
+    .join-link:focus-visible, .peek-link:focus-visible, .brand:focus-visible, .footer a:focus-visible {
+      outline: 3px solid #267898;
+      outline-offset: 4px;
+    }
+
+    .join-link svg, .peek-link svg { width: 17px; height: 17px; }
+
+    .side-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .side-note::before {
+      width: 31px;
+      height: 2px;
+      content: "";
+      background: var(--coral);
+    }
+
+    .widget-stage {
+      position: relative;
+      justify-self: center;
+      width: 410px;
+      max-width: 100%;
+      padding: 18px;
+      background: var(--lime);
+      box-shadow: 9px 10px 0 var(--coral);
+      animation: reveal 800ms 100ms cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .widget-stage::before {
+      position: absolute;
+      top: -13px;
+      right: 18px;
+      width: 52px;
+      height: 26px;
+      border: 1px solid var(--ink);
+      border-bottom: 0;
+      background: var(--paper);
+      content: "";
+    }
+
+    .widget-wrap {
+      position: relative;
+      z-index: 1;
+      padding: 12px;
+      border: 1px solid var(--ink);
+      background: #fff;
+    }
+
+    .widget-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 1px 2px 12px;
+      color: var(--ink);
+      font-size: 10px;
+    }
+
+    .widget-label span:last-child { color: var(--muted); text-align: right; }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 500px;
+      border: 0;
+      border-radius: 2px;
+      background: #2b2d31;
+    }
+
+    .footer {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .footer-note { font-size: 10px; }
+
+    .footer a {
+      font-size: 12px;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 800px) {
+      .page { width: min(calc(100% - 48px), 580px); }
+      main { grid-template-columns: 1fr; gap: 46px; padding: 58px 0 66px; }
+      .intro { max-width: 570px; }
+      h1 { font-size: clamp(68px, 13vw, 92px); }
+      .widget-stage { justify-self: center; width: 100%; max-width: 410px; min-width: 0; }
+    }
+
+    @media (max-width: 420px) {
+      .page { width: calc(100% - 36px); }
+      .topbar { min-height: 72px; }
+      .brand { gap: 9px; font-size: 14px; }
+      .brand-mark { width: 33px; height: 33px; font-size: 22px; }
+      .top-note { max-width: 122px; font-size: 9px; line-height: 1.45; text-align: right; }
+      main { gap: 38px; padding: 45px 0 55px; }
+      .eyebrow { font-size: 9px; }
+      h1 { margin: 24px 0 19px; font-size: clamp(61px, 16vw, 76px); }
+      .description { font-size: 15px; }
+      .actions { align-items: stretch; gap: 6px; margin-top: 25px; }
+      .join-link, .peek-link { min-height: 48px; padding: 0 13px; font-size: 12px; }
+      .side-note { margin-top: 34px; font-size: 9px; }
+      .widget-stage { padding: 12px; box-shadow: 6px 7px 0 var(--coral); }
+      .widget-wrap { padding: 9px; }
+      .widget-label { font-size: 9px; }
+      iframe { height: 500px; }
+      .footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 0; }
+    }
+
+    @media (max-width: 360px) {
+      h1 { font-size: 55px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="heading">
-            <h1>CODE<br>FOR<br>FUN</h1>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Roblox beta community home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>roblox beta</span>
+      </a>
+      <span class="top-note">ROBLOX GAME / BETA COMMUNITY</span>
+    </header>
+
+    <main id="home">
+      <section class="intro" aria-labelledby="page-title">
+        <div class="eyebrow"><span class="eyebrow-index" aria-hidden="true">01</span> ROBLOX GAME / IN BETA</div>
+        <h1 id="page-title">The game is<br><em>in beta.</em></h1>
+        <p class="description">Meet other players and join the conversation around the Roblox game while it’s in beta.</p>
+        <div class="actions">
+          <a class="join-link" href="https://discord.com/invite/TnVSbT3w" target="_blank" rel="noopener noreferrer">
+            Join the community
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="peek-link" href="#server">
+            Take a look
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0 6-6m-6 6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
-        
-        <div class="button-group">
-            <a href="https://guns.lol/goobles" class="btn" target="_blank">Guns.lol</a>
-            <a href="https://youtube.com/@gooblesMC" class="btn btn-outline" target="_blank">YouTube</a>
-        </div>
-    </div>
+        <div class="side-note">Meet you in the game</div>
+      </section>
+
+      <div class="widget-stage" id="server">
+        <aside class="widget-wrap" aria-label="Discord server invite">
+          <div class="widget-label"><span>Game community</span><span>Roblox / beta</span></div>
+          <iframe src="https://discord.com/widget?id=1564304424547909702&amp;theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" title="Discord server invite"></iframe>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span class="footer-note">ROBLOX GAME · BETA COMMUNITY</span>
+      <a href="https://discord.com/invite/TnVSbT3w" target="_blank" rel="noopener noreferrer">Join the server ↗</a>
+    </footer>
+  </div>
 </body>
 </html>
